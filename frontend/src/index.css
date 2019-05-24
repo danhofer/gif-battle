@@ -1,0 +1,167 @@
+* {
+    font-family: 'HelveticaNeue-Light', 'Helvetica Neue Light', 'Helvetica Neue',
+        'Helvetica', 'Arial', 'Lucida Grande', sans-serif;
+    font-size: 15px;
+}
+
+body {
+    word-wrap: break-word;
+    margin: 0;
+    padding: 0;
+    margin-right: auto;
+    margin-left: auto;
+    background-color: aliceblue;
+    user-select: none;
+}
+
+.App {
+    text-align: center;
+}
+
+/* Gifs */
+
+.Staging img,
+.Lobby img {
+    height: 200px;
+    margin-left: 5px;
+    margin-top: 5px;
+    box-shadow: 0px 1px 2px;
+}
+
+.Game img {
+    height: 125px;
+    margin-left: 5px;
+    margin-top: 5px;
+    box-shadow: 0px 1px 2px;
+}
+
+.gifViewer {
+    position: relative;
+    display: inline-block;
+}
+
+.selectedGif {
+    position: relative;
+    display: inline-block;
+}
+
+.selectedGif img {
+    outline: dashed 5px;
+    margin: 15px auto;
+}
+
+/* Text */
+
+.textStaging,
+.textLobby {
+    margin: 15px auto;
+    height: 20px;
+    padding: 1px;
+}
+
+.Timer {
+    font-size: large;
+    margin: 20px;
+}
+
+.PromptText {
+    font-size: xx-large;
+    margin: 30px;
+}
+
+.PromptText a {
+    font-size: x-large;
+    margin: 30px, 0px;
+}
+
+.buffer {
+    margin: 5px auto;
+    height: 20px;
+    padding-top: 20px;
+}
+
+.selectedGifText {
+    position: absolute;
+    bottom: 10px;
+    width: 100%;
+
+    margin: 15px 0;
+    padding: 0px;
+    font-family: impact;
+    font-size: 1.5em;
+    text-transform: uppercase;
+    color: white;
+    letter-spacing: 1px;
+    text-shadow: 2px 2px 0 #000, -2px -2px 0 #000, 2px -2px 0 #000,
+        -2px 2px 0 #000, 0px 2px 0 #000, 2px 0px 0 #000, 0px -2px 0 #000,
+        -2px 0px 0 #000, 2px 2px 5px #000;
+}
+
+.gifText {
+    pointer-events: none;
+    position: absolute;
+    bottom: 30px;
+    width: 100%;
+
+    margin: 15px 0px;
+    padding: 10px;
+    font-family: impact;
+    font-size: 1.5em;
+    text-transform: uppercase;
+    color: white;
+    letter-spacing: 1px;
+    text-shadow: 2px 2px 0 #000, -2px -2px 0 #000, 2px -2px 0 #000,
+        -2px 2px 0 #000, 0px 2px 0 #000, 2px 0px 0 #000, 0px -2px 0 #000,
+        -2px 0px 0 #000, 2px 2px 5px #000;
+}
+
+/* Buttons */
+
+.buttonStaging,
+.buttonLobby,
+.buttonGame,
+.buttonPodium {
+    margin: 15px;
+    width: 150px;
+    height: 25px;
+    cursor: default;
+}
+
+.buttonGame {
+    margin: 30px;
+    width: 150px;
+    height: 25px;
+    cursor: default;
+}
+
+.buttonStaging:hover,
+.buttonLobby:hover,
+.buttonGame:hover,
+.buttonPodium:hover {
+    box-shadow: 0px 0px 0px 1px;
+}
+
+.buttonStaging:disabled,
+.buttonLobby:disabled,
+.buttonGame:disabled,
+.buttonPodium:disabled {
+    box-shadow: 0px 0px 0px 0px;
+}
+
+/* Input */
+
+.inputStaging,
+.inputLobby {
+    width: 150px;
+    height: 20px;
+    text-align: center;
+    user-select: text;
+}
+
+.inputGame {
+    width: 300px;
+    height: 20px;
+    margin-bottom: 10px;
+    text-align: center;
+    user-select: text;
+}
