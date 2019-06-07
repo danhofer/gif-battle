@@ -18,7 +18,7 @@ const initialState = {
 	giphyUrls: [],
 	gifText: '',
 
-	submissionUrl: 'https://media.giphy.com/media/13bGgH9VnEDsuA/giphy.gif',
+	submissionUrl: '',
 
 	itemsToChooseFrom: [],
 	voteIndex: -1,
@@ -199,6 +199,10 @@ class Game extends Component {
 			selectedGifToSubmit = (
 				<img src={this.state.submissionUrl} alt="selected gif" />
 			)
+		else
+				selectedGifToSubmit = (
+					<div className="noGifSelected"></div>
+				)
 
 		if (this.state.voteIndex > -1) {
 			selectedGifToVoteOn = (
@@ -226,37 +230,9 @@ class Game extends Component {
 		if (this.state.gamePhase === 'authoring' && this.state.isAuthor)
 			currentPhase = (
 				<div className="Authoring">
-					<div>
-						<div> Your reaction:</div>
-						<div className="selectedGif">
-							{selectedGifToSubmit}
-							<div className="selectedGifText">
-								{this.state.gifText}
-							</div>
-						</div>
-					</div>
-					<input
-						className="inputGame"
-						placeholder="Optional Reaction Text"
-						onInput={event => {
-							this.setState({ gifText: event.target.value })
-						}}
-					/>
-					<div>
-						<button
-							className="buttonGame"
-							disabled={!this.state.submissionUrl}
-							onClick={async () => {
-								await this.vote()
-							}}
-						>
-							Submit Gif
-						</button>
-					</div>
-					<div className="textGame">Find your gif:</div>
 					<input
 						ref={this.textInput}
-						className="inputGame"
+						className="inputGameGiphy"
 						placeholder="Search Giphy"
 						onInput={event => {
 							const limit = this.state.giphySearchResults
@@ -300,6 +276,33 @@ class Game extends Component {
 						gifs={this.state.giphyUrls}
 						className="GifsToSelect"
 					/>
+					<div>
+						<div> Your reaction:</div>
+						<div className="selectedGif">
+							{selectedGifToSubmit}
+							<div className="selectedGifText">
+								{this.state.gifText}
+							</div>
+						</div>
+					</div>
+					<input
+						className="inputGameText"
+						placeholder="Optional Text"
+						onInput={event => {
+							this.setState({ gifText: event.target.value })
+						}}
+					/>
+					<div>
+						<button
+							className="buttonGame"
+							disabled={!this.state.submissionUrl}
+							onClick={async () => {
+								await this.vote()
+							}}
+						>
+							Submit Gif
+						</button>
+					</div>
 				</div>
 			)
 		else if (this.state.gamePhase === 'authoring' && !this.state.isAuthor)
