@@ -166,7 +166,7 @@ class Lobby extends Component {
             <div className="Lobby">
                 {gif}
                 <div className="textLobby">
-                    <strong>{this.props.roomId}</strong>{' '}
+                    <strong>{this.props.roomId}</strong>
                 </div>
                 <div>{badUsernameStatus}</div>
                 {action}
