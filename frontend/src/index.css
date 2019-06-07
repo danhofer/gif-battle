@@ -35,6 +35,11 @@ body {
     max-width: 100%;
 }
 
+.copyIcon img {
+    height: 15px;
+    box-shadow: unset;
+}
+
 .Game img {
     height: 125px;
     margin-left: 5px;

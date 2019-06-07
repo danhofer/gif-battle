@@ -1,18 +1,26 @@
 import React, { Component } from 'react'
 
 function WaitingPlayers(props) {
-    return (
-        <div className="textLobby">
-            Waiting Players:
-            {props.players.map((player, i) => {
-                return (
-                    <div key={i} className="player">
-                        {player.name}
-                    </div>
-                )
-            })}
-        </div>
-    )
+    if (props.players.length === 0)
+        return (
+            <div className="textLobby">
+                <div key="0" className="player">
+                    No one is here.
+                </div>
+            </div>
+        )
+    else
+        return (
+            <div className="textLobby">
+                {props.players.map((player, i) => {
+                    return (
+                        <div key={i} className="player">
+                            {player.name}
+                        </div>
+                    )
+                })}
+            </div>
+        )
 }
 
 class Lobby extends Component {
@@ -115,6 +123,13 @@ class Lobby extends Component {
 
             action = (
                 <div>
+                    <input
+                        className="inputLobby"
+                        placeholder="Your Name"
+                        ref={this.textInput}
+                        onInput={event => this.fillUsername(event)}
+                        onKeyDown={this.pressEnter.bind(this)}
+                    />
                     <div>
                         <button
                             className="buttonLobby"
@@ -124,13 +139,6 @@ class Lobby extends Component {
                             Set Username
                         </button>
                     </div>
-                    <input
-                        className="inputLobby"
-                        placeholder="Your Name"
-                        ref={this.textInput}
-                        onInput={event => this.fillUsername(event)}
-                        onKeyDown={this.pressEnter.bind(this)}
-                    />
                 </div>
             )
         } else if (this.state.usernameSubmitted && this.props.isGameLeader) {
@@ -158,7 +166,7 @@ class Lobby extends Component {
             <div className="Lobby">
                 {gif}
                 <div className="textLobby">
-                    Game Room ID: <strong>{this.props.roomId}</strong>
+                    <strong>{this.props.roomId}</strong>{' '}
                 </div>
                 <div>{badUsernameStatus}</div>
                 {action}
