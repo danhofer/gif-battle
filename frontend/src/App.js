@@ -8,7 +8,7 @@ class App extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            view: 'game',
+            view: 'staging',
             roomId: '',
             isGameLeader: false,
             players: [],
