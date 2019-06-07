@@ -55,34 +55,37 @@ class Staging extends Component {
     render() {
         let badIdStatus = ''
 
-        if (this.state.badRoomId) badIdStatus = 'Room ID is not valid.'
+        if (this.state.badRoomId) badIdStatus = 'Game ID is not valid.'
 
         return (
             <div className="Staging">
                 <img src={this.headerGif} alt="waiting to play" />
+
+                <div>
+                    <input
+                        className="inputStaging"
+                        placeholder="Game ID"
+                        ref={this.textInput}
+                        onInput={this.onInput.bind(this)}
+                        onKeyDown={this.pressEnter.bind(this)}
+                    />
+                </div>
                 <div>
                     <button
                         className="buttonStaging"
                         disabled={!this.state.inputtedRoomId}
                         onClick={this.joinRoomId.bind(this)}
                     >
-                        Join Existing Game
+                        Join Game
                     </button>
                 </div>
-                <input
-                    className="inputStaging"
-                    placeholder="Game ID"
-                    ref={this.textInput}
-                    onInput={this.onInput.bind(this)}
-                    onKeyDown={this.pressEnter.bind(this)}
-                />
 
-                <div className="buffer">OR</div>
+                {/* <div className="buffer">OR</div> */}
                 <button
                     className="buttonStaging"
                     onClick={async () => await this.props.server.newGame()}
                 >
-                    Create New Game
+                    New Game
                 </button>
                 <div>{badIdStatus}</div>
                 {/* </div> */}
