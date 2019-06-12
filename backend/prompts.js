@@ -2,10 +2,10 @@ const prompts = {
     0: {
         id: 0,
         text:
-            'Black Security Guard Who Stops Shooter Is Then Shot And Killed By Police',
+            'Natural Gas Is Now Being Referred to as "Freedom Gas" by The US Department of Energy',
         url:
-            'https://thehill.com/homenews/news/416255-black-security-guard-stops-shooter-then-is-shot-by-police-while-holding',
-        site: 'thehill.com',
+            'https://www.sciencealert.com/us-department-of-energy-is-now-referring-to-natural-gas-as-freedom-gas',
+        site: 'sciencealert.com',
     },
     1: {
         id: 1,
