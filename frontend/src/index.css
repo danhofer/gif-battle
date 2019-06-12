@@ -41,10 +41,16 @@ body {
 }
 
 .Game img {
-    height: 125px;
+    max-height: 400px;
     margin-left: 5px;
     margin-top: 5px;
     box-shadow: 0px 1px 2px;
+}
+
+@media only screen and (max-width: 500px) {
+    .Game img {
+        height: 125px;
+    }
 }
 
 .gifViewer {
