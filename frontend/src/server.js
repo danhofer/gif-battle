@@ -89,17 +89,5 @@ export class Server extends EventTarget {
 
 ////
 
-// NEED TO ADD INTERFACES:
-// that make players Author (aka submit gifs)
-// that make players Voter ()
-// that prompt the round leader to choose a prompt?
-// - Need to add to Game component:
-//   - isRoundLeader
-//   - Authoring phase for round leader
-// OR: just have the server distribute prompt,
-// players all author, players all vote (except for their own)
-// - Need to add to Game component:
-//   - waiting for other authors to submit gifs (Between submit and vote)
-
 // server.dispatchEvent(new CustomEvent('choose', {detail: {submissions: [{url:'https://media2.giphy.com/media/xTiN0L7EW5trfOvEk0/giphy.gif',text:'hi'}]}}))
 // server.dispatchEvent(new CustomEvent('result', {detail: {result: [{url:'https://media2.giphy.com/media/xTiN0L7EW5trfOvEk0/giphy.gif',text:'hi'}]}}))
