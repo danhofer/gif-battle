@@ -78,19 +78,43 @@ body {
     padding: 1px;
 }
 
-.Timer {
-    font-size: large;
+.Lobby .player {
+    font-size: x-large;
+}
+
+.Round,
+.Game .player {
+    font-size: medium;
+}
+
+.timerGreen {
+    font-size: xx-large;
     margin: 20px;
+    color: green;
+    font-weight: bolder;
+}
+
+.timerYellow {
+    font-size: xx-large;
+    margin: 20px;
+    color: orange;
+    font-weight: bolder;
+}
+
+.timerRed {
+    font-size: xx-large;
+    margin: 20px;
+    color: red;
+    font-weight: bolder;
 }
 
 .PromptText {
     font-size: xx-large;
-    margin: 30px;
+    margin: 30px 0px;
 }
 
 .PromptText a {
-    font-size: x-large;
-    margin: 30px, 0px;
+    font-size: large;
 }
 
 .buffer {

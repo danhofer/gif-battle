@@ -7,7 +7,8 @@ const initialState = {
 	isGifSelected: false,
 	isVoter: true,
 
-	roundSeconds: 0,
+	roundSecondsCurrent: 0,
+	roundSecondsAtStart: 0,
 
 	promptText: '',
 	promptUrl: '',
@@ -76,8 +77,14 @@ function Scores(props) {
 }
 
 function Timer(props) {
-	if (props.gamePhase === 'authoring')
-		return <div className="Timer">Time Remaining: {props.timeLeft}</div>
+	if (props.gamePhase === 'authoring'){
+		if (props.roundSecondsCurrent > props.roundSecondsAtStart/2)
+			return <div className="timerGreen">{props.timeLeft}</div>
+		else if (props.roundSecondsCurrent > props.roundSecondsAtStart/4)
+			return <div className="timerYellow">{props.timeLeft}</div>
+		else
+			return <div className="timerRed">{props.timeLeft}</div>
+	}
 	else return null
 }
 
@@ -136,7 +143,8 @@ class Game extends Component {
 			this.setState({
 				currentRound: event.detail.currentRound,
 				maxRounds: event.detail.maxRounds,
-				roundSeconds: event.detail.roundSeconds,
+				roundSecondsCurrent: event.detail.roundSeconds,
+				roundSecondsAtStart: event.detail.roundSeconds,
 			})
 		}
 		this.props.server.addEventListener('round', this.round)
@@ -177,15 +185,15 @@ class Game extends Component {
 	}
 
 	tick() {
-		let roundSeconds = this.state.roundSeconds
-		if (roundSeconds > 0) {
-			roundSeconds--
-			const minutes = Math.floor(roundSeconds / 60)
-			const seconds = ('0' + (roundSeconds % 60)).slice(-2)
+		let roundSecondsCurrent = this.state.roundSecondsCurrent
+		if (roundSecondsCurrent > 0) {
+			roundSecondsCurrent--
+			const minutes = Math.floor(roundSecondsCurrent / 60)
+			const seconds = ('0' + (roundSecondsCurrent % 60)).slice(-2)
 
 			const timeLeft = `${minutes}:${seconds}`
 
-			this.setState({ timeLeft, roundSeconds })
+			this.setState({ timeLeft, roundSecondsCurrent })
 		}
 	}
 
@@ -442,18 +450,20 @@ class Game extends Component {
 				<Scores className="Scores" scores={this.state.scores} />
 				<Timer
 					timeLeft={this.state.timeLeft}
+					roundSecondsCurrent={this.state.roundSecondsCurrent}
+					roundSecondsAtStart={this.state.roundSecondsAtStart}
 					gamePhase={this.state.gamePhase}
 				/>
 				<div className="PromptText">
-					"{this.state.promptText}" (
+					"{this.state.promptText}" 
 					<a
 						href={this.state.promptUrl}
 						target="_blank"
 						rel="noopener noreferrer"
 					>
-						{this.state.promptSite}
+						({this.state.promptSite})
 					</a>
-					)
+					
 				</div>
 
 				{currentPhase}

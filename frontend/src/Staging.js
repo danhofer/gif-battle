@@ -24,7 +24,6 @@ class Staging extends Component {
 
         this.state = {
             inputtedRoomId: '',
-            // badRoomId: false,
             badRoomId: document.location.hash,
         }
 
@@ -64,7 +63,7 @@ class Staging extends Component {
                 <div>
                     <input
                         className="inputStaging"
-                        placeholder="Game ID"
+                        placeholder="Existing Game ID"
                         ref={this.textInput}
                         onInput={this.onInput.bind(this)}
                         onKeyDown={this.pressEnter.bind(this)}
