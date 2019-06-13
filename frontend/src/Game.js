@@ -217,6 +217,8 @@ class Game extends Component {
 						className="inputGameGiphy"
 						placeholder="Search Giphy"
 						onInput={event => {
+							const typingDelayDuration  = 1000
+
 							const limit = this.state.giphySearchResults
 							const newlySearchedGiphyUrls = []
 							const searchQuery = event.target.value
@@ -244,9 +246,13 @@ class Game extends Component {
 											url:
 												'https://media2.giphy.com/media/xTiN0L7EW5trfOvEk0/giphy.gif',
 										})
+										clearTimeout(this.inputTimer)
+										this.inputTimer = setTimeout( () => {
 									this.setState({
 										giphyUrls: newlySearchedGiphyUrls,
 									})
+								}, typingDelayDuration)
+
 								})
 						}}
 					/>
