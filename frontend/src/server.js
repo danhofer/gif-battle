@@ -1,3 +1,5 @@
+import { EventTarget } from 'event-target-shim'
+
 export class Server extends EventTarget {
     constructor() {
         super()

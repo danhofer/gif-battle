@@ -233,7 +233,7 @@ class Game extends Component {
 								.then(obj => {
 									for (const item of obj.data) {
 										newlySearchedGiphyUrls.push({
-											url: item.images.original.webp,
+											url: item.images.original.url,
 										})
 									}
 									if (
