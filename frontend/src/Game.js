@@ -216,7 +216,10 @@ class Game extends Component {
 						ref={this.textInput}
 						className="inputGameGiphy"
 						placeholder="Search Giphy"
+						value={this.state.inputText}
 						onInput={event => {
+							const inputText = event.target.value
+							this.setState({inputText})
 							const typingDelayDuration  = 1000
 
 							const limit = this.state.giphySearchResults
@@ -258,8 +261,12 @@ class Game extends Component {
 					/>
 					<GifViewer
 						gamePhase={this.state.gamePhase}
-						selectGif={async url =>
-							this.setState({ submissionUrl: url })
+						selectGif={async url =>{
+							this.setState({
+								inputText: '',
+								submissionUrl: url,
+								giphyUrls: [] })
+							}
 						}
 						gifs={this.state.giphyUrls}
 						className="GifsToSelect"
