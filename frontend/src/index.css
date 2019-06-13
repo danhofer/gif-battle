@@ -59,8 +59,8 @@ body {
 }
 
 .noGifSelected {
-    height: 120px;
-    width: 120px;
+    height: 180px;
+    width: 360px;
     outline: solid 4px green;
     margin: 15px auto;
 }
@@ -149,7 +149,7 @@ body {
 .gifText {
     pointer-events: none;
     position: absolute;
-    bottom: 30px;
+    bottom: 70px;
     width: 100%;
 
     margin: 15px 0px;
