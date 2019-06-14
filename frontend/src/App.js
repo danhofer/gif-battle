@@ -3,6 +3,7 @@ import Staging from './Staging.js'
 import Lobby from './Lobby.js'
 import Game from './Game.js'
 import Podium from './Podium.js'
+import headerImg from './headerImg.png'
 
 class App extends Component {
     constructor(props) {
@@ -128,7 +129,9 @@ class App extends Component {
 
         return (
             <div className="App">
-                <div className="Header" />
+                <div className="Header">
+                    <img src={headerImg} alt="GIF BATTLE" />
+                </div>
                 {currentScreen}
             </div>
         )

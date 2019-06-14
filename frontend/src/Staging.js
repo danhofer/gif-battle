@@ -79,7 +79,6 @@ class Staging extends Component {
                     </button>
                 </div>
 
-                {/* <div className="buffer">OR</div> */}
                 <button
                     className="buttonStaging"
                     onClick={async () => await this.props.server.newGame()}
@@ -87,7 +86,6 @@ class Staging extends Component {
                     New Game
                 </button>
                 <div>{badIdStatus}</div>
-                {/* </div> */}
             </div>
         )
     }
