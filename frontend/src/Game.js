@@ -3,9 +3,7 @@ import React, { Component } from 'react'
 const initialState = {
 	scores: [],
 	gamePhase: 'authoring',
-	isAuthor: true,
 	isGifSelected: false,
-	isVoter: true,
 
 	roundSecondsCurrent: 0,
 	roundSecondsAtStart: 0,
@@ -198,18 +196,39 @@ class Game extends Component {
 
 	render() {
 		let currentPhase
-		let selectedGifToSubmit
+		let selection
 
-		if (this.state.submissionUrl.length)
-			selectedGifToSubmit = (
-				<img src={this.state.submissionUrl} alt="selected gif" />
+		if (this.state.gamePhase === 'authoring')
+		{
+			selection = (
+				<div>
+					<div>
+						<div className="selectedGif">
+						<img src={this.state.submissionUrl} alt="selected gif" />
+							<div className="selectedGifText">
+								{this.state.gifText}
+							</div>
+						</div>
+					</div>
+					<input
+						className="inputGameText"
+						placeholder="Optional Text"
+						onInput={event => {
+							this.setState({ gifText: event.target.value })
+						}}
+					/>
+					<div>
+						<button
+							className="buttonGame"
+							onClick={async () => {
+								await this.vote()
+							}}
+						>
+							Submit Gif
+						</button>
+					</div>
+				</div>
 			)
-		else
-				selectedGifToSubmit = (
-					<div className="noGifSelected"></div>
-				)
-
-		if (this.state.gamePhase === 'authoring' && this.state.isAuthor)
 			currentPhase = (
 				<div className="Authoring">
 					<input
@@ -259,6 +278,7 @@ class Game extends Component {
 								})
 						}}
 					/>
+					<div> Your reaction:</div>
 					<GifViewer
 						gamePhase={this.state.gamePhase}
 						selectGif={async url =>{
@@ -271,41 +291,10 @@ class Game extends Component {
 						gifs={this.state.giphyUrls}
 						className="GifsToSelect"
 					/>
-					<div>
-						<div> Your reaction:</div>
-						<div className="selectedGif">
-							{selectedGifToSubmit}
-							<div className="selectedGifText">
-								{this.state.gifText}
-							</div>
-						</div>
-					</div>
-					<input
-						className="inputGameText"
-						placeholder="Optional Text"
-						onInput={event => {
-							this.setState({ gifText: event.target.value })
-						}}
-					/>
-					<div>
-						<button
-							className="buttonGame"
-							disabled={!this.state.submissionUrl}
-							onClick={async () => {
-								await this.vote()
-							}}
-						>
-							Submit Gif
-						</button>
-					</div>
+					{this.state.submissionUrl && selection}
 				</div>
 			)
-		else if (this.state.gamePhase === 'authoring' && !this.state.isAuthor)
-			currentPhase = (
-				<div className="Authoring">
-					Waiting for other players to select gifs.
-				</div>
-			)
+		}
 		else if (
 			this.state.gamePhase === 'voting' &&
 			this.state.itemsToChooseFrom.length === 0
@@ -315,34 +304,18 @@ class Game extends Component {
 					Waiting for other players to select gifs.
 				</div>
 			)
-		} else if (this.state.gamePhase === 'voting' && this.state.isVoter)
+		} else if (this.state.gamePhase === 'voting')
 			currentPhase = (
 				<div className="Voting">
 					Select one gif to vote for.
 					<GifViewer
 						gamePhase={this.state.gamePhase}
-						isVoter={this.state.isVoter}
-
 						selectGif = {async voteIndex => {
 							this.setState({ gamePhase: 'end' })
 							await this.props.server.vote(
 								voteIndex
 							)
 						}}
-						gifs={this.state.itemsToChooseFrom}
-						className="SubmittedGifs"
-					/>
-				</div>
-			)
-		else if (this.state.gamePhase === 'voting' && !this.state.isVoter)
-			currentPhase = (
-				<div className="Voting">
-					Waiting for other players to vote on gifs.
-					{/* User can't choose these gifs because they are not a voter */}
-					<GifViewer
-						gamePhase={this.state.gamePhase}
-						isVoter={this.state.isVoter}
-						selectGif={async i => console.log(i)}
 						gifs={this.state.itemsToChooseFrom}
 						className="SubmittedGifs"
 					/>

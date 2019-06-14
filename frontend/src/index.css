@@ -58,20 +58,13 @@ body {
     display: inline-block;
 }
 
-.noGifSelected {
-    height: 180px;
-    width: 360px;
-    outline: solid 4px green;
-    margin: 15px auto;
-}
-
 .selectedGif {
     position: relative;
     display: inline-block;
 }
 
 .selectedGif img {
-    outline: solid 4px green;
+    outline: solid 6px green;
     margin: 15px auto;
 }
 
