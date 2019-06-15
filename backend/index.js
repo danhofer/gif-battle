@@ -25,6 +25,7 @@ function newPlayer(user, ws) {
     user.currentGame[user.id] = {
         id: user.id,
         score: 0,
+        isGameLeader: false,
         playerJoined: name => {
             ws.send(
                 JSON.stringify({
@@ -304,12 +305,10 @@ wss.on('connection', function connection(ws, req) {
                 user.currentGame[user.currentGame.leader].setLeader()
             } else if (!user.currentGame.playerKeys.length)
                 delete runningGames[user.currentGame.roomId]
+
+            sendScores(user.currentGame)
         }
-        log(
-            `User "${user.name}" disconnected. (ip: ${user.ip} id: ${
-                user.id
-            })`
-        )
+        log(`User "${user.name}" disconnected. (ip: ${user.ip} id: ${user.id})`)
     })
 
     ws.on('message', function incoming(data) {
