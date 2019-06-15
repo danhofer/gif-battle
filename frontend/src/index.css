@@ -19,7 +19,6 @@ body {
 }
 
 .App {
-    padding: 10px 0 0 0;
     text-align: center;
     margin: auto;
     width: 80%;
@@ -30,6 +29,7 @@ body {
 /* Gifs */
 
 .Header img {
+    padding: 10px 0;
     max-width: 100%;
 }
 
