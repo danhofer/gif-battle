@@ -15,7 +15,7 @@ log(`Server started on port: ${port}`)
 const runningGames = {}
 
 const maxRounds = 5
-const roundSeconds = 120
+const roundSeconds = 20
 
 // TO DO - find way to make roomId random
 let roomIdIndex = 0
@@ -99,10 +99,10 @@ function newPlayer(user, ws) {
                 })
             )
         },
-        forceVote: () => {
+        forceSubmit: () => {
             ws.send(
                 JSON.stringify({
-                    method: 'forceVote',
+                    method: 'forceSubmit',
                 })
             )
         },
@@ -200,7 +200,7 @@ function newRound(game) {
 
     sendRound(game)
     sendScores(game)
-    timer(roundSeconds, 'forceVote', game)
+    timer(roundSeconds, 'forceSubmit', game)
 }
 
 function sendScores(game) {
@@ -254,7 +254,7 @@ function timer(timeInSeconds, event, game) {
     }, 1000)
 }
 
-myEmitter.on('forceVote', game => {
+myEmitter.on('forceSubmit', game => {
     const didntVote = game.playerKeys.slice()
 
     game.submissions.forEach(item => {
@@ -263,7 +263,7 @@ myEmitter.on('forceVote', game => {
     })
 
     didntVote.forEach(playerId => {
-        game[playerId].forceVote()
+        game[playerId].forceSubmit()
     })
 })
 
@@ -461,12 +461,16 @@ wss.on('connection', function connection(ws, req) {
         }
 
         if (message.method === 'setSubmission') {
-            setSubmission(
-                user.currentGame,
-                message.params.submissionUrl,
-                message.params.gifText,
-                user.id
-            )
+            if (!message.params.submissionUrl)
+                removePlayer(user.currentGame.roomId, user.id)
+            else
+                setSubmission(
+                    user.currentGame,
+                    message.params.submissionUrl,
+                    message.params.gifText,
+                    user.id
+                )
+
             sendTrue(message.id, ws)
         }
 

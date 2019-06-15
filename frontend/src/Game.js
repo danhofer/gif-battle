@@ -111,10 +111,10 @@ class Game extends Component {
 		}
 		this.props.server.addEventListener('choose', this.choose)
 
-		this.forceVote = async () => {
-			await this.vote()
+		this.forceSubmit = async () => {
+			await this.submit()
 		}
-		this.props.server.addEventListener('forceVote', this.forceVote)
+		this.props.server.addEventListener('forceSubmit', this.forceSubmit)
 
 		this.result = event => {
 			const resultsOfVoting = event.detail.result
@@ -173,7 +173,7 @@ class Game extends Component {
 		clearInterval(this.timer)
 	}
 
-	async vote() {
+	async submit() {
 		this.setState({ gamePhase: 'voting' })
 		await this.props.server.setSubmission(
 			this.state.submissionUrl,
@@ -221,7 +221,7 @@ class Game extends Component {
 						<button
 							className="buttonGame"
 							onClick={async () => {
-								await this.vote()
+								await this.submit()
 							}}
 						>
 							Submit Gif
