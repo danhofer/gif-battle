@@ -10,7 +10,7 @@ const port = 8080
 
 const wss = new WebSocket.Server({ port })
 
-log(`-- Server started on port: ${port}`)
+log(`Server started on port: ${port}`)
 
 const runningGames = {}
 
@@ -274,7 +274,7 @@ function sendFalse(id, ws) {
 }
 
 function log(message) {
-    console.log(message)
+    console.log(`-- ${message}`)
 }
 
 wss.on('connection', function connection(ws, req) {
@@ -283,7 +283,7 @@ wss.on('connection', function connection(ws, req) {
         id: ++playerIdIndex,
         currentGame: null,
     }
-    log(`-- Client connection established from: ${user.ip} (${user.id})`)
+    log(`Client connection established from: ${user.ip} (${user.id})`)
 
     ws.on('close', () => {
         if (user.currentGame) {
@@ -306,14 +306,14 @@ wss.on('connection', function connection(ws, req) {
                 delete runningGames[user.currentGame.roomId]
         }
         log(
-            `-- User "${user.name}" disconnected. (ip: ${user.ip} id: ${
+            `User "${user.name}" disconnected. (ip: ${user.ip} id: ${
                 user.id
             })`
         )
     })
 
     ws.on('message', function incoming(data) {
-        log(`-- Received: ${data}`)
+        log(`Received: ${data}`)
 
         const message = JSON.parse(data)
 
