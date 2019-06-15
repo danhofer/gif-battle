@@ -24,6 +24,7 @@ let playerIdIndex = 0
 function newPlayer(user, ws) {
     user.currentGame[user.id] = {
         id: user.id,
+        name: undefined,
         score: 0,
         isGameLeader: false,
         playerJoined: name => {
@@ -148,6 +149,28 @@ function newPlayer(user, ws) {
             )
         },
     }
+}
+
+function removePlayer(roomId, userId, userName) {
+    const idIndex = runningGames[roomId].playerKeys.indexOf(userId)
+    runningGames[roomId].playerKeys.splice(idIndex, 1)
+
+    delete runningGames[roomId][userId]
+
+    runningGames[roomId].playerKeys.forEach(player =>
+        runningGames[roomId][player].playerLeft(userName)
+    )
+
+    if (
+        runningGames[roomId].leader === userId &&
+        runningGames[roomId].playerKeys.length > 0
+    ) {
+        runningGames[roomId].leader = runningGames[roomId].playerKeys[0]
+        runningGames[roomId][runningGames[roomId].leader].setLeader()
+    } else if (!runningGames[roomId].playerKeys.length)
+        delete runningGames[runningGames[roomId].roomId]
+
+    if (runningGames[roomId]) sendScores(runningGames[roomId])
 }
 
 function setSubmission(game, url, text, playerId) {
@@ -287,27 +310,12 @@ wss.on('connection', function connection(ws, req) {
     log(`Client connection established from: ${user.ip} (${user.id})`)
 
     ws.on('close', () => {
-        if (user.currentGame) {
-            const idIndex = user.currentGame.playerKeys.indexOf(user.id)
-            user.currentGame.playerKeys.splice(idIndex, 1)
+        if (
+            user.currentGame &&
+            user.currentGame.playerKeys.indexOf(user.id) > -1
+        )
+            removePlayer(user.currentGame.roomId, user.id, user.name)
 
-            delete user.currentGame[user.id]
-
-            user.currentGame.playerKeys.forEach(player =>
-                user.currentGame[player].playerLeft(user.name)
-            )
-
-            if (
-                user.currentGame.leader === user.id &&
-                user.currentGame.playerKeys.length > 0
-            ) {
-                user.currentGame.leader = user.currentGame.playerKeys[0]
-                user.currentGame[user.currentGame.leader].setLeader()
-            } else if (!user.currentGame.playerKeys.length)
-                delete runningGames[user.currentGame.roomId]
-
-            sendScores(user.currentGame)
-        }
         log(`User "${user.name}" disconnected. (ip: ${user.ip} id: ${user.id})`)
     })
 
@@ -391,6 +399,11 @@ wss.on('connection', function connection(ws, req) {
         }
 
         if (message.method === 'setName') {
+            if (user.currentGame.hasGameBegun) {
+                sendFalse(message.id, ws)
+                return
+            }
+
             const isUsernameTaken = user.currentGame.playerKeys
                 .map(player => {
                     return user.currentGame[player].name
@@ -422,6 +435,17 @@ wss.on('connection', function connection(ws, req) {
             }
 
             user.currentGame.hasGameBegun = true
+
+            const unnamedPlayers = []
+
+            user.currentGame.playerKeys.forEach(player => {
+                if (!user.currentGame[player].name) {
+                    unnamedPlayers.push(player)
+                }
+            })
+            unnamedPlayers.forEach(player =>
+                removePlayer(user.currentGame.roomId, player)
+            )
 
             // refresh information from old games
             user.currentGame.currentRound = 1
