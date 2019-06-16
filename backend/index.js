@@ -255,7 +255,6 @@ function timer(timeInSeconds, event, game) {
 }
 
 myEmitter.on('forceSubmit', game => {
-    // BOOKMARK - SEE WHEN FORCESUBMIT IS BEING IMPLEMENTED
     const didntVote = game.playerKeys.slice()
 
     game.submissions.forEach(item => {
@@ -462,13 +461,6 @@ wss.on('connection', function connection(ws, req) {
         }
 
         if (message.method === 'setSubmission') {
-            // BOOKMARK
-            console.log(
-                `Player ${user.name}: ${JSON.stringify(
-                    user.currentGame.submissions
-                )}`
-            )
-
             if (!message.params.submissionUrl)
                 removePlayer(user.currentGame.roomId, user.id)
             else

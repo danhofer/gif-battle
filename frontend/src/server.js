@@ -88,8 +88,3 @@ export class Server extends EventTarget {
         return
     }
 }
-
-////
-
-// server.dispatchEvent(new CustomEvent('choose', {detail: {submissions: [{url:'https://media2.giphy.com/media/xTiN0L7EW5trfOvEk0/giphy.gif',text:'hi'}]}}))
-// server.dispatchEvent(new CustomEvent('result', {detail: {result: [{url:'https://media2.giphy.com/media/xTiN0L7EW5trfOvEk0/giphy.gif',text:'hi'}]}}))
