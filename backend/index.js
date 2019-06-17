@@ -86,12 +86,11 @@ function newPlayer(user, ws) {
                 })
             )
         },
-        prompt: (promptId, promptText, promptUrl, promptSite) => {
+        prompt: (promptText, promptUrl, promptSite) => {
             ws.send(
                 JSON.stringify({
                     method: 'prompt',
                     params: {
-                        promptId,
                         promptText,
                         promptUrl,
                         promptSite,
@@ -195,7 +194,7 @@ function newRound(game) {
     const prompt = getPrompt(game)
 
     game.playerKeys.forEach(player => {
-        game[player].prompt(prompt.id, prompt.text, prompt.url, prompt.site)
+        game[player].prompt(prompt.text, prompt.url, prompt.site)
     })
 
     sendRound(game)
@@ -225,7 +224,7 @@ function sendRound(game) {
 
 function getPrompt(currentGame) {
     if (currentGame.remainingPrompts.length <= 0) {
-        for (let i = 0; i < Object.keys(prompts).length; i++)
+        for (let i = 0; i < prompts.length; i++)
             currentGame.remainingPrompts.push(i)
     }
 
@@ -342,7 +341,7 @@ wss.on('connection', function connection(ws, req) {
                 totalVotes: 0,
             }
 
-            for (let i = 0; i < Object.keys(prompts).length; i++)
+            for (let i = 0; i < prompts.length; i++)
                 runningGames[roomId].remainingPrompts.push(i)
 
             user.currentGame = runningGames[roomId]

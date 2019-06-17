@@ -10,7 +10,6 @@ const initialState = {
 
 	promptText: '',
 	promptUrl: '',
-	promptId: '',
 	promptSite: '',
 
 	giphySearchResults: 5,
@@ -97,7 +96,6 @@ class Game extends Component {
 	componentDidMount() {
 		this.prompt = event => {
 			this.setState({
-				promptId: event.detail.promptId,
 				promptText: event.detail.promptText,
 				promptUrl: event.detail.promptUrl,
 				promptSite: event.detail.promptSite,
