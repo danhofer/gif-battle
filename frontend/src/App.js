@@ -70,6 +70,17 @@ class App extends Component {
             this.setState({ view: 'podium', finalScores })
         }
         this.props.server.addEventListener('finalResult', this.finalResult)
+
+        this.exitGame = event => {
+            this.setState({
+                view: 'staging',
+                roomId: '',
+                isGameLeader: false,
+                players: [],
+                finalScores: [],
+            })
+        }
+        this.props.server.addEventListener('exitGame', this.exitGame)
     }
 
     componentWillUnmount() {
@@ -90,6 +101,9 @@ class App extends Component {
 
         this.props.server.removeEventListener('finalResult', this.finalResult)
         this.finalResult = null
+
+        this.props.server.removeEventListener('exitGame', this.exitGame)
+        this.exitGame = null
     }
 
     onInput(event) {

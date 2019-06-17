@@ -3,7 +3,7 @@ import React, { Component } from 'react'
 const initialState = {
 	scores: [],
 	gamePhase: 'authoring',
-	isGifSelected: false,
+	isGifSubmitted: false,
 
 	roundSecondsCurrent: 0,
 	roundSecondsAtStart: 0,
@@ -105,7 +105,10 @@ class Game extends Component {
 
 		this.choose = event => {
 			const itemsToChooseFrom = event.detail.submissions
-			this.setState({ itemsToChooseFrom })
+			this.setState({ 
+				gamePhase: 'voting',
+				itemsToChooseFrom
+			})
 		}
 		this.props.server.addEventListener('choose', this.choose)
 
@@ -156,6 +159,9 @@ class Game extends Component {
 		this.props.server.removeEventListener('choose', this.choose)
 		this.choose = null
 
+		this.props.server.removeEventListener('forceSubmit', this.forceSubmit)
+		this.forceSubmit = null
+
 		this.props.server.removeEventListener('result', this.result)
 		this.result = null
 
@@ -172,7 +178,7 @@ class Game extends Component {
 	}
 
 	async submit() {
-		this.setState({ gamePhase: 'voting' })
+		this.setState({isGifSubmitted: true})
 		await this.props.server.setSubmission(
 			this.state.submissionUrl,
 			this.state.gifText
@@ -196,7 +202,7 @@ class Game extends Component {
 		let currentPhase
 		let selection
 
-		if (this.state.gamePhase === 'authoring')
+		if (this.state.gamePhase === 'authoring' && !this.state.isGifSubmitted)
 		{
 			selection = (
 				<div>
@@ -293,12 +299,9 @@ class Game extends Component {
 				</div>
 			)
 		}
-		else if (
-			this.state.gamePhase === 'voting' &&
-			this.state.itemsToChooseFrom.length === 0
-		) {
+		else if (this.state.gamePhase === 'authoring' && this.state.isGifSubmitted) {
 			currentPhase = (
-				<div className="Voting">
+				<div className="Authoring">
 					Waiting for other players to select gifs.
 				</div>
 			)

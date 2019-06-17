@@ -127,130 +127,165 @@ const prompts = [
     //     site: 'the-daily-star.com',
     // },
     {
-        text: 'South Carolina woman pulled over on toy truck while driving drunk, police say',
-        url: 'https://www.delawareonline.com/story/news/2019/06/15/megan-holman-nabbed-driving-toy-truck-drunk-south-carolina-police/1466429001/',
-        site: 'www.delawareonline.com'
+        text:
+            'South Carolina woman pulled over on toy truck while driving drunk, police say',
+        url:
+            'https://www.delawareonline.com/story/news/2019/06/15/megan-holman-nabbed-driving-toy-truck-drunk-south-carolina-police/1466429001/',
+        site: 'www.delawareonline.com',
     },
     {
-        text: 'Man who thought he bought first house furious after it turns out to be 30cm strip of land',
-        url: 'https://7news.com.au/business/property/man-who-thought-he-bought-first-house-furious-after-it-turns-out-to-be-30cm-strip-of-land-c-168750',
-        site: '7news.com.au'
+        text:
+            'Man who thought he bought first house furious after it turns out to be 30cm strip of land',
+        url:
+            'https://7news.com.au/business/property/man-who-thought-he-bought-first-house-furious-after-it-turns-out-to-be-30cm-strip-of-land-c-168750',
+        site: '7news.com.au',
     },
     {
-        text: 'Outkast’s André 3000 spotted walking around an airport playing the flute',
+        text:
+            'Outkast’s André 3000 spotted walking around an airport playing the flute',
         url: 'https://tonedeaf.thebrag.com/outkasts-andre-3000-airport-flute/',
-        site: 'tonedeaf.thebrag.com'
+        site: 'tonedeaf.thebrag.com',
     },
     {
-        text: '84yo Japanese Grandpa Becomes IG Influencer After Grandson Dresses Him',
-        url: 'https://www.worldofbuzz.com/84yo-japanese-grandpa-becomes-ig-influencer-after-grandson-dresses-him/',
-        site: 'www.worldofbuzz.com'
+        text:
+            '84yo Japanese Grandpa Becomes IG Influencer After Grandson Dresses Him',
+        url:
+            'https://www.worldofbuzz.com/84yo-japanese-grandpa-becomes-ig-influencer-after-grandson-dresses-him/',
+        site: 'www.worldofbuzz.com',
     },
     {
         text: 'French Marathon Where People Drink Wine and Eat Cheese',
-        url: 'http://www.thinkinghumanity.com/2019/05/french-marathon-where-people-drink-wine-and-eat-cheese.html',
-        site: 'www.thinkinghumanity.com'
+        url:
+            'http://www.thinkinghumanity.com/2019/05/french-marathon-where-people-drink-wine-and-eat-cheese.html',
+        site: 'www.thinkinghumanity.com',
     },
     {
         text: 'Sold-out crowd attends goat role-playing event in Redding',
-        url: 'https://www.stamfordadvocate.com/local/stamfordadvocate/article/Sold-out-crowd-attends-goat-role-playing-event-in-14000631.php',
-        site: 'www.stamfordadvocate.com'
+        url:
+            'https://www.stamfordadvocate.com/local/stamfordadvocate/article/Sold-out-crowd-attends-goat-role-playing-event-in-14000631.php',
+        site: 'www.stamfordadvocate.com',
     },
     {
-        text: 'Illinois farmers give up on planting after floods, throw party instead',
-        url: 'https://www.reuters.com/article/us-usa-weather-planting/illinois-farmers-give-up-on-planting-after-floods-throw-party-instead-idUSKCN1TH0BQ',
-        site: 'www.reuters.com'
+        text:
+            'Illinois farmers give up on planting after floods, throw party instead',
+        url:
+            'https://www.reuters.com/article/us-usa-weather-planting/illinois-farmers-give-up-on-planting-after-floods-throw-party-instead-idUSKCN1TH0BQ',
+        site: 'www.reuters.com',
     },
     {
-        text: '‘This Works’: Group Says Drinking Your Own Pee Is Good For You',
-        url: 'https://detroit.cbslocal.com/2019/06/13/this-works-group-says-drinking-your-own-pee-good-for-you/',
-        site: 'detroit.cbslocal.com'
+        text: "'This Works': Group Says Drinking Your Own Pee Is Good For You",
+        url:
+            'https://detroit.cbslocal.com/2019/06/13/this-works-group-says-drinking-your-own-pee-good-for-you/',
+        site: 'detroit.cbslocal.com',
     },
     {
         text: 'Washington state waterfront owners asked to take dead whales',
         url: 'https://apnews.com/3fa3e9078ff34306bf15d3854634251a',
-        site: 'apnews.com'
+        site: 'apnews.com',
     },
     {
-        text: '\"Female Crabs Only Eat Their Own Young When They’re Hungry\"',
+        text: 'Female Crabs Only Eat Their Own Young When They’re Hungry',
         url: 'http://www.deepseanews.com/2014/07/females-crabs/',
-        site: 'www.deepseanews.com'
+        site: 'www.deepseanews.com',
     },
     {
         text: 'Spirit’s new strategy: Be a less terrible airline',
-        url: 'https://www.detroitnews.com/story/business/2019/06/14/spirit-airlines-new-strategy-less-terrible/39584091/',
-        site: 'www.detroitnews.com'
+        url:
+            'https://www.detroitnews.com/story/business/2019/06/14/spirit-airlines-new-strategy-less-terrible/39584091/',
+        site: 'www.detroitnews.com',
     },
     {
         text: 'Pew pew: Xbox deodorant helps you smell like a gamer',
-        url: 'https://www.cnet.com/news/xbox-deodorant-helps-you-smell-like-a-gamer/',
-        site: 'www.cnet.com'
+        url:
+            'https://www.cnet.com/news/xbox-deodorant-helps-you-smell-like-a-gamer/',
+        site: 'www.cnet.com',
     },
     {
         text: 'Golfer Hits Fan With His shot, Takes Pic with Him on the Ground',
-        url: 'https://www.sportsgossip.com/golfer-hits-fan-with-his-shot-takes-pic-with-him-on-the-ground/',
-        site: 'www.sportsgossip.com'
+        url:
+            'https://www.sportsgossip.com/golfer-hits-fan-with-his-shot-takes-pic-with-him-on-the-ground/',
+        site: 'www.sportsgossip.com',
     },
     {
-        text: 'Humans have started growing spikes in the back of their skulls because we use smartphones so much',
-        url: 'https://www.newsweek.com/humans-have-started-growing-spikes-back-their-skulls-because-we-use-smartphones-so-much-1443757',
-        site: 'www.newsweek.com'
+        text:
+            'Humans have started growing spikes in the back of their skulls because we use smartphones so much',
+        url:
+            'https://www.newsweek.com/humans-have-started-growing-spikes-back-their-skulls-because-we-use-smartphones-so-much-1443757',
+        site: 'www.newsweek.com',
     },
     {
-        text: 'California court: Prison pot is OK, as long as inmates don’t inhale',
-        url: 'https://www.wmur.com/article/california-court-prison-pot-is-ok-as-long-as-inmates-don-t-inhale/28031298',
-        site: 'www.wmur.com'
+        text:
+            'California court: Prison pot is OK, as long as inmates don’t inhale',
+        url:
+            'https://www.wmur.com/article/california-court-prison-pot-is-ok-as-long-as-inmates-don-t-inhale/28031298',
+        site: 'www.wmur.com',
     },
     {
-        text: 'Star Trek \'Starfleet logo\' spotted on Mars by NASA probe',
-        url: 'http://news.sky.com/story/star-trek-starfleet-logo-spotted-on-mars-by-nasa-probe-11741938',
-        site: 'news.sky.com'
+        text: "Star Trek 'Starfleet logo' spotted on Mars by NASA probe",
+        url:
+            'http://news.sky.com/story/star-trek-starfleet-logo-spotted-on-mars-by-nasa-probe-11741938',
+        site: 'news.sky.com',
     },
     {
         text: 'Pour decisions? The better educated you are, the more you drink',
-        url: 'https://www.nbcnews.com/business/consumer/pour-decisions-better-educated-you-are-more-you-drink-n1017616',
-        site: 'www.nbcnews.com'
+        url:
+            'https://www.nbcnews.com/business/consumer/pour-decisions-better-educated-you-are-more-you-drink-n1017616',
+        site: 'www.nbcnews.com',
     },
     {
-        text: 'FBI releases files on Playboy founder Hugh Hefner: Agents probing obscenity, wild parties found he looked lonely',
-        url: 'https://calgaryherald.com/news/world/fbi-releases-files-on-playboy-founder-hugh-hefner-agents-probing-obscenity-wild-parties-found-he-looked-lonely/wcm/49fc5382-2ffb-4b1e-83bc-497bbaea1bcf',
-        site: 'calgaryherald.com'
+        text:
+            'FBI releases files on Playboy founder Hugh Hefner: Agents probing obscenity, wild parties found he looked lonely',
+        url:
+            'https://calgaryherald.com/news/world/fbi-releases-files-on-playboy-founder-hugh-hefner-agents-probing-obscenity-wild-parties-found-he-looked-lonely/wcm/49fc5382-2ffb-4b1e-83bc-497bbaea1bcf',
+        site: 'calgaryherald.com',
     },
     {
-        text: 'Pakistan’s Khyber-Pakhtunkhwa Government Live Streams Facebook Press Conference With Cat Filter On.',
-        url: 'https://swarajyamag.com/insta/pakistans-khyber-pakhtunkhwa-government-streams-live-facebook-press-conference-with-cat-filter-on',
-        site: 'swarajyamag.com'
+        text:
+            'Pakistan’s Khyber-Pakhtunkhwa Government Live Streams Facebook Press Conference With Cat Filter On.',
+        url:
+            'https://swarajyamag.com/insta/pakistans-khyber-pakhtunkhwa-government-streams-live-facebook-press-conference-with-cat-filter-on',
+        site: 'swarajyamag.com',
     },
     {
-        text: 'Brother walks through front door after sisters take man they thought was him off life support',
+        text:
+            'Brother walks through front door after sisters take man they thought was him off life support',
         url: 'https://www.knoe.com/content/news/511303182.html',
-        site: 'www.knoe.com'
+        site: 'www.knoe.com',
     },
     {
-        text: 'DOT Manager Fired After Caught Driving For Rideshare Service During Normal Work Hours',
-        url: 'https://baltimore.cbslocal.com/2019/06/14/dot-manager-fired-after-caught-driving-for-rideshare-service-during-normal-work-hours/',
-        site: 'baltimore.cbslocal.com'
+        text:
+            'DOT Manager Fired After Caught Driving For Rideshare Service During Normal Work Hours',
+        url:
+            'https://baltimore.cbslocal.com/2019/06/14/dot-manager-fired-after-caught-driving-for-rideshare-service-during-normal-work-hours/',
+        site: 'baltimore.cbslocal.com',
     },
     {
-        text: 'Hard Rock Cafe releases ‘The Golden Solo,’ performed on world’s first playable burger guitar',
+        text:
+            "Hard Rock Cafe releases 'The Golden Solo,' performed on world’s first playable burger guitar",
         url: 'https://attractionsmagazine.com/hard-rock-cafe-burger-guitar/',
-        site: 'attractionsmagazine.com'
+        site: 'attractionsmagazine.com',
     },
     {
-        text: 'WWE superstar John Cena confesses he got an ‘accidental boner’ while wrestling',
-        url: 'https://twnews.co.uk/gb-news/wwe-superstar-john-cena-confesses-he-got-an-accidental-boner-while-wrestling',
-        site: 'twnews.co.uk'
+        text:
+            "WWE superstar John Cena confesses he got an 'accidental boner' while wrestling",
+        url:
+            'https://twnews.co.uk/gb-news/wwe-superstar-john-cena-confesses-he-got-an-accidental-boner-while-wrestling',
+        site: 'twnews.co.uk',
     },
     {
-        text: 'Denver school board bans use of handcuffs on elementary school students',
-        url: 'https://denverite.com/2019/06/14/denver-school-board-bans-use-of-handcuffs-on-elementary-school-students/',
-        site: 'denverite.com'
+        text:
+            'Denver school board bans use of handcuffs on elementary school students',
+        url:
+            'https://denverite.com/2019/06/14/denver-school-board-bans-use-of-handcuffs-on-elementary-school-students/',
+        site: 'denverite.com',
     },
     {
-        text: 'Ephraim Police seek owner of ‘criminal turkey’ after apprehending jaywalking bird',
-        url: 'https://fox13now.com/2019/06/13/ephraim-police-seek-owner-of-criminal-bird-after-apprehending-jaywalking-turkey/',
-        site: 'fox13now.com'
+        text:
+            "Ephraim Police seek owner of 'criminal turkey' after apprehending jaywalking bird",
+        url:
+            'https://fox13now.com/2019/06/13/ephraim-police-seek-owner-of-criminal-bird-after-apprehending-jaywalking-turkey/',
+        site: 'fox13now.com',
     },
-];
+]
 
 module.exports = prompts

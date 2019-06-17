@@ -16,6 +16,8 @@ const runningGames = {}
 
 const maxRounds = 5
 const roundSeconds = 120
+// BOOKMARK
+const voteSeconds = 30
 
 // TO DO - find way to make roomId random
 let roomIdIndex = 0
@@ -147,12 +149,21 @@ function newPlayer(user, ws) {
                 })
             )
         },
+        exitGame: () => {
+            ws.send(
+                JSON.stringify({
+                    method: 'exitGame',
+                })
+            )
+        },
     }
 }
 
 function removePlayer(roomId, userId, userName) {
     const idIndex = runningGames[roomId].playerKeys.indexOf(userId)
     runningGames[roomId].playerKeys.splice(idIndex, 1)
+
+    runningGames[roomId][userId].exitGame()
 
     delete runningGames[roomId][userId]
 
@@ -173,11 +184,12 @@ function removePlayer(roomId, userId, userName) {
 }
 
 function setSubmission(game, url, text, playerId) {
-    game.submissions.push({
-        url,
-        text,
-        playerId,
-    })
+    if (url)
+        game.submissions.push({
+            url,
+            text,
+            playerId,
+        })
 
     if (game.submissions.length === game.playerKeys.length) {
         shuffle(game.submissions)
@@ -264,6 +276,13 @@ myEmitter.on('forceSubmit', game => {
     didntVote.forEach(playerId => {
         game[playerId].forceSubmit()
     })
+})
+
+myEmitter.on('forceVote', game => {
+    // TO DO - boot player
+    // removePlayer(roomId, userId, userName)
+    // set a timer
+    // make sure everyone else can still play
 })
 
 function shuffle(array) {
@@ -462,13 +481,13 @@ wss.on('connection', function connection(ws, req) {
         if (message.method === 'setSubmission') {
             if (!message.params.submissionUrl)
                 removePlayer(user.currentGame.roomId, user.id)
-            else
-                setSubmission(
-                    user.currentGame,
-                    message.params.submissionUrl,
-                    message.params.gifText,
-                    user.id
-                )
+            // else
+            setSubmission(
+                user.currentGame,
+                message.params.submissionUrl,
+                message.params.gifText,
+                user.id
+            )
 
             sendTrue(message.id, ws)
         }
