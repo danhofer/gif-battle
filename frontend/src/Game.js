@@ -4,6 +4,7 @@ const initialState = {
 	scores: [],
 	gamePhase: 'authoring',
 	isGifSubmitted: false,
+	isVoteSubmitted: false,
 
 	roundSecondsCurrent: 0,
 	roundSecondsAtStart: 0,
@@ -119,7 +120,10 @@ class Game extends Component {
 
 		this.result = event => {
 			const resultsOfVoting = event.detail.result
-			this.setState({ resultsOfVoting })
+			this.setState({
+				resultsOfVoting,
+				gamePhase: 'end'
+			})
 		}
 		this.props.server.addEventListener('result', this.result)
 
@@ -305,14 +309,14 @@ class Game extends Component {
 					Waiting for other players to select gifs.
 				</div>
 			)
-		} else if (this.state.gamePhase === 'voting')
+		} else if (this.state.gamePhase === 'voting' && !this.state.isVoteSubmitted)
 			currentPhase = (
 				<div className="Voting">
 					Select one gif to vote for.
 					<GifViewer
 						gamePhase={this.state.gamePhase}
 						selectGif = {async voteIndex => {
-							this.setState({ gamePhase: 'end' })
+							this.setState({isVoteSubmitted: true})
 							await this.props.server.vote(
 								voteIndex
 							)
@@ -320,6 +324,12 @@ class Game extends Component {
 						gifs={this.state.itemsToChooseFrom}
 						className="SubmittedGifs"
 					/>
+				</div>
+			)
+		else if (this.state.gamePhase === 'voting' && this.state.isVoteSubmitted )
+			currentPhase = (
+				<div className="Voting">
+					Waiting for other players to vote on gifs.
 				</div>
 			)
 		else if (
