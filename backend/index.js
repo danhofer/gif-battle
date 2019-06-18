@@ -177,7 +177,10 @@ function removePlayer(roomId, userId, userName) {
     ) {
         runningGames[roomId].leader = runningGames[roomId].playerKeys[0]
         runningGames[roomId][runningGames[roomId].leader].setLeader()
-    } else if (runningGames[roomId].playerKeys.length === 1) {
+    } else if (
+        runningGames[roomId].playerKeys.length === 1 &&
+        runningGames[roomId].hasGameBegun
+    ) {
         const lastPlayer = runningGames[roomId].playerKeys[0]
         runningGames[roomId][lastPlayer].finalResult([
             {
