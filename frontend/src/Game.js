@@ -74,7 +74,7 @@ function Scores(props) {
 }
 
 function Timer(props) {
-	if (props.gamePhase === 'authoring' || 'voting'){
+	if (props.gamePhase !== 'end'){
 		if (props.roundSecondsCurrent > props.roundSecondsAtStart/2)
 			return <div className="timerGreen">{props.timeLeft}</div>
 		else if (props.roundSecondsCurrent > props.roundSecondsAtStart/4)

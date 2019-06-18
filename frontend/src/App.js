@@ -44,6 +44,8 @@ class App extends Component {
         this.props.server.addEventListener('playerJoined', this.playerJoined)
 
         this.playerLeft = event => {
+            if (!event.detail.name) console.log('player left: unnamed player')
+
             const currentPlayers = this.state.players.slice()
             const index = currentPlayers
                 .map(player => {

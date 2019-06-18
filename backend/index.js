@@ -14,8 +14,8 @@ log(`Server started on port: ${port}`)
 
 const runningGames = {}
 
-const maxRounds = 3
-const roundSeconds = 20
+const maxRounds = 5
+const roundSeconds = 120
 const voteSeconds = 30
 
 // TO DO - find way to make roomId random
@@ -200,6 +200,49 @@ function setSubmission(game, url, text, playerId) {
     }
 }
 
+function checkIfVotingComplete(game) {
+    if (game.totalVotes === game.playerKeys.length) {
+        const submissionsToRemove = []
+        game.submissions.forEach(item => {
+            if (!game[item.playerId]) {
+                submissionsToRemove.push(item.playerId)
+                return
+            }
+
+            item.player = game[item.playerId].name
+            if (!item.votes) item.votes = 0
+        })
+
+        submissionsToRemove.forEach(playerId => {
+            const index = game.submissions
+                .map(submission => {
+                    return submission.playerId
+                })
+                .indexOf(playerId)
+            game.submissions.splice(index, 1)
+        })
+
+        if (!game.submissions.length) return
+
+        game.submissions.sort((a, b) => {
+            if (a.votes < b.votes) return 1
+            if (a.votes > b.votes) return -1
+            return 0
+        })
+
+        const winningNumberOfVotes = game.submissions[0].votes
+
+        game.submissions.forEach(item => {
+            if (item.votes === winningNumberOfVotes) game[item.playerId].score++
+        })
+
+        game.playerKeys.forEach(player => {
+            game[player].result(game.submissions)
+        })
+        sendScores(game)
+    }
+}
+
 function newRound(game) {
     game.submissions = []
     game.submittedVote = []
@@ -291,10 +334,8 @@ myEmitter.on('forceVote', game => {
     didntVote.forEach(playerId => {
         removePlayer(game.roomId, playerId, game[playerId].name)
     })
-    // TO DO - boot player
-    // need a voted array, need to clear the array on new rounds.
-    // removePlayer(roomId, userId, userName)
-    // make sure everyone else can still play
+
+    checkIfVotingComplete(game)
 
     //TO DO - END GAME IF ONLY ONE PLAYER IS LEFT
 })
@@ -477,7 +518,7 @@ wss.on('connection', function connection(ws, req) {
                 }
             })
             unnamedPlayers.forEach(player =>
-                removePlayer(user.currentGame.roomId, player, 'unnamed player')
+                removePlayer(user.currentGame.roomId, player)
             )
 
             // refresh information from old games
@@ -521,36 +562,8 @@ wss.on('connection', function connection(ws, req) {
 
             user.currentGame.totalVotes++
 
-            if (
-                user.currentGame.totalVotes ===
-                user.currentGame.playerKeys.length
-            ) {
-                user.currentGame.submissions.forEach(item => {
-                    item.player = user.currentGame[item.playerId].name
-                    if (!item.votes) item.votes = 0
-                })
+            checkIfVotingComplete(user.currentGame)
 
-                user.currentGame.submissions.sort((a, b) => {
-                    if (a.votes < b.votes) return 1
-                    if (a.votes > b.votes) return -1
-                    return 0
-                })
-
-                const winningNumberOfVotes =
-                    user.currentGame.submissions[0].votes
-
-                user.currentGame.submissions.forEach(item => {
-                    if (item.votes === winningNumberOfVotes)
-                        user.currentGame[item.playerId].score++
-                })
-
-                user.currentGame.playerKeys.forEach(player => {
-                    user.currentGame[player].result(
-                        user.currentGame.submissions
-                    )
-                })
-                sendScores(user.currentGame)
-            }
             sendTrue(message.id, ws)
         }
 
