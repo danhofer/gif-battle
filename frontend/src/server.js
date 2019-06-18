@@ -87,4 +87,9 @@ export class Server extends EventTarget {
         await this.send('endGame')
         return
     }
+
+    async bootSelf() {
+        await this.send('bootSelf')
+        return
+    }
 }

@@ -173,10 +173,18 @@ function removePlayer(roomId, userId, userName) {
 
     if (
         runningGames[roomId].leader === userId &&
-        runningGames[roomId].playerKeys.length > 0
+        runningGames[roomId].playerKeys.length > 1
     ) {
         runningGames[roomId].leader = runningGames[roomId].playerKeys[0]
         runningGames[roomId][runningGames[roomId].leader].setLeader()
+    } else if (runningGames[roomId].playerKeys.length === 1) {
+        const lastPlayer = runningGames[roomId].playerKeys[0]
+        runningGames[roomId][lastPlayer].finalResult([
+            {
+                name: runningGames[roomId][lastPlayer].name,
+                score: runningGames[roomId][lastPlayer].score,
+            },
+        ])
     } else if (!runningGames[roomId].playerKeys.length)
         delete runningGames[runningGames[roomId].roomId]
 
@@ -336,8 +344,6 @@ myEmitter.on('forceVote', game => {
     })
 
     checkIfVotingComplete(game)
-
-    //TO DO - END GAME IF ONLY ONE PLAYER IS LEFT
 })
 
 function shuffle(array) {
@@ -613,6 +619,11 @@ wss.on('connection', function connection(ws, req) {
 
                 sendTrue(message.id, ws)
             } else sendFalse(message.id, ws)
+        }
+
+        if (message.method === 'bootSelf') {
+            removePlayer(user.currentGame.roomId, user.id)
+            sendTrue(message.id, ws)
         }
     })
 })
