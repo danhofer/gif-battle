@@ -14,8 +14,8 @@ log(`Server started on port: ${port}`)
 
 const runningGames = {}
 
-const maxRounds = 5
-const roundSeconds = 120
+const maxRounds = 3
+const roundSeconds = 20
 // BOOKMARK
 const voteSeconds = 30
 
@@ -107,7 +107,7 @@ function newPlayer(user, ws) {
                 })
             )
         },
-        sendChoices: submissions => {
+        sendChoices: (submissions, roundSeconds) => {
             let ownSubmissionIndex
             for (let i = 0; i < submissions.length; i++) {
                 if (submissions[i].playerId === user.id) ownSubmissionIndex = i
@@ -120,6 +120,7 @@ function newPlayer(user, ws) {
                     method: 'choose',
                     params: {
                         submissions: otherSubmissions,
+                        roundSeconds,
                     },
                 })
             )
@@ -194,7 +195,7 @@ function setSubmission(game, url, text, playerId) {
     if (game.submissions.length === game.playerKeys.length) {
         shuffle(game.submissions)
         game.playerKeys.forEach(player => {
-            game[player].sendChoices(game.submissions)
+            game[player].sendChoices(game.submissions, voteSeconds)
         })
     }
 }

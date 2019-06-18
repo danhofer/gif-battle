@@ -74,7 +74,7 @@ function Scores(props) {
 }
 
 function Timer(props) {
-	if (props.gamePhase === 'authoring'){
+	if (props.gamePhase === 'authoring' || 'voting'){
 		if (props.roundSecondsCurrent > props.roundSecondsAtStart/2)
 			return <div className="timerGreen">{props.timeLeft}</div>
 		else if (props.roundSecondsCurrent > props.roundSecondsAtStart/4)
@@ -108,7 +108,9 @@ class Game extends Component {
 			const itemsToChooseFrom = event.detail.submissions
 			this.setState({ 
 				gamePhase: 'voting',
-				itemsToChooseFrom
+				itemsToChooseFrom,
+				roundSecondsCurrent: event.detail.roundSeconds,
+				roundSecondsAtStart: event.detail.roundSeconds,
 			})
 		}
 		this.props.server.addEventListener('choose', this.choose)
