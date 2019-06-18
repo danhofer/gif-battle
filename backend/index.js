@@ -16,7 +16,6 @@ const runningGames = {}
 
 const maxRounds = 3
 const roundSeconds = 20
-// BOOKMARK
 const voteSeconds = 30
 
 // TO DO - find way to make roomId random
@@ -197,11 +196,13 @@ function setSubmission(game, url, text, playerId) {
         game.playerKeys.forEach(player => {
             game[player].sendChoices(game.submissions, voteSeconds)
         })
+        timer(voteSeconds, 'forceVote', game)
     }
 }
 
 function newRound(game) {
     game.submissions = []
+    game.submittedVote = []
     game.totalVotes = 0
 
     const prompt = getPrompt(game)
@@ -267,23 +268,35 @@ function timer(timeInSeconds, event, game) {
 }
 
 myEmitter.on('forceSubmit', game => {
-    const didntVote = game.playerKeys.slice()
+    const didntSubmit = game.playerKeys.slice()
 
     game.submissions.forEach(item => {
-        const index = didntVote.indexOf(item.playerId)
-        didntVote.splice(index, 1)
+        const index = didntSubmit.indexOf(item.playerId)
+        didntSubmit.splice(index, 1)
     })
 
-    didntVote.forEach(playerId => {
+    didntSubmit.forEach(playerId => {
         game[playerId].forceSubmit()
     })
 })
 
 myEmitter.on('forceVote', game => {
+    const didntVote = game.playerKeys.slice()
+
+    game.submittedVote.forEach(playerId => {
+        const index = didntVote.indexOf(playerId)
+        didntVote.splice(index, 1)
+    })
+
+    didntVote.forEach(playerId => {
+        removePlayer(game.roomId, playerId, game[playerId].name)
+    })
     // TO DO - boot player
+    // need a voted array, need to clear the array on new rounds.
     // removePlayer(roomId, userId, userName)
-    // set a timer
     // make sure everyone else can still play
+
+    //TO DO - END GAME IF ONLY ONE PLAYER IS LEFT
 })
 
 function shuffle(array) {
@@ -358,6 +371,7 @@ wss.on('connection', function connection(ws, req) {
                 leader: user.id,
                 hasGameBegun: false,
                 submissions: [],
+                submittedVote: [],
                 totalVotes: 0,
             }
 
@@ -463,12 +477,13 @@ wss.on('connection', function connection(ws, req) {
                 }
             })
             unnamedPlayers.forEach(player =>
-                removePlayer(user.currentGame.roomId, player)
+                removePlayer(user.currentGame.roomId, player, 'unnamed player')
             )
 
             // refresh information from old games
             user.currentGame.currentRound = 1
             user.currentGame.submissions = []
+            user.currentGame.submittedVote = []
             user.currentGame.playerKeys.forEach(player => {
                 user.currentGame[player].score = 0
                 user.currentGame[player].gameStarted()
@@ -481,8 +496,12 @@ wss.on('connection', function connection(ws, req) {
 
         if (message.method === 'setSubmission') {
             if (!message.params.submissionUrl)
-                removePlayer(user.currentGame.roomId, user.id)
-            // else
+                removePlayer(
+                    user.currentGame.roomId,
+                    user.id,
+                    user.currentGame[user.id].name
+                )
+
             setSubmission(
                 user.currentGame,
                 message.params.submissionUrl,
@@ -494,6 +513,8 @@ wss.on('connection', function connection(ws, req) {
         }
 
         if (message.method === 'vote') {
+            user.currentGame.submittedVote.push(user.id)
+
             if (!user.currentGame.submissions[message.params.voteIndex].votes)
                 user.currentGame.submissions[message.params.voteIndex].votes = 1
             else user.currentGame.submissions[message.params.voteIndex].votes++
