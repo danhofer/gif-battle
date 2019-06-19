@@ -9,6 +9,7 @@ const initialState = {
 	roundSecondsCurrent: 0,
 	roundSecondsAtStart: 0,
 
+	inputText: '',
 	promptText: '',
 	promptUrl: '',
 	promptSite: '',
@@ -248,10 +249,9 @@ class Game extends Component {
 						className="inputGameGiphy"
 						placeholder="Search Giphy"
 						value={this.state.inputText}
-						onChange={()=>{/* no-op, change handled by the parent component see https://github.com/facebook/react/issues/3070#issuecomment-73311114*/}}
-						onInput={event => {
+						onChange ={event => {
 							const inputText = event.target.value
-								this.setState({inputText})
+							this.setState({inputText})
 
 							const limit = this.state.giphySearchResults
 							const newlySearchedGiphyUrls = []

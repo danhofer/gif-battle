@@ -58,31 +58,3 @@ runningGames[roomId] = {
     submissions: [],
     totalVotes: 0,
 }
-
-// TO DO
-// - fix the errors below
-
-// Error with giphy search box:
-// Warning: A component is changing an uncontrolled input of type undefined to be controlled.
-// Input elements should not switch from uncontrolled to controlled (or vice versa).
-// Decide between using a controlled or uncontrolled input element for the lifetime of the component.
-// More info: https://fb.me/react-controlled-components
-//     in input (at Game.js:234)
-//     in div (at Game.js:233)
-//     in div (at Game.js:388)
-//     in Game (at App.js:115)
-//     in div (at App.js:131)
-//     in App (at src/index.js:13)
-
-// use event.persist() ? https://reactjs.org/docs/events.html#event-pooling
-// https://stackoverflow.com/questions/23123138/perform-debounce-in-react-js (search for event.persist() )
-
-// Error with pressing next round (resolved):
-// Warning: Failed prop type: You provided a `value` prop to a form field without an `onChange` handler.
-// This will render a read-only field. If the field should be mutable use `defaultValue`. Otherwise, set either `onChange` or `readOnly`.
-//     in input (at Game.js:234)
-//     in div (at Game.js:233)
-//     in div (at Game.js:388)
-//     in Game (at App.js:115)
-//     in div (at App.js:131)
-//     in App (at src/index.js:13)
