@@ -58,17 +58,3 @@ runningGames[roomId] = {
     submissions: [],
     totalVotes: 0,
 }
-
-
-// notes from live test:
-// scoring doubling by accident
-// searching doesn’t erase
-// moblie got booted
-// need more time on voting
-// searching - need to cancel previous search when performing new search & need indicator that theres a current search loading
-// “vote: x”
-// score = total score
-// submit button at top where it can be seen
-// waiting on x players to submit
-// need placeholder image in search
-// one second delay not long enough for the slow typers
