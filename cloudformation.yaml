@@ -234,7 +234,7 @@ Resources:
             aws ec2 create-tags --region $(curl -s http://169.254.169.254/latest/meta-data/placement/availability-zone | sed 's/[a-z]$//') --resources $(curl http://169.254.169.254/latest/meta-data/instance-id) --tags Key='Name',Value='userdataComplete'
 
 # needs IAM role
-# arn:aws:iam::aws:policy/AmazonEC2FullAccess? it only needs to edit its own tag... but actually, it doesn't really need to even do that. how to notify user that the game is ready?
+# it only needs to edit its own tag... but actually, it doesn't really need to even do that. how to notify user that the game is ready?
 # needs to be attached to instance
 # outputs need to be simplified
 
