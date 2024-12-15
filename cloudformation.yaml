@@ -238,6 +238,9 @@ Resources:
 # needs to be attached to instance
 # outputs need to be simplified
 
+# can the userdata run a CLI command to trigger an SNS notification, but use an environmental variable for the SNS topic?
+# https://stackoverflow.com/questions/54858072/aws-cloudformation-userdata-ec2-environment-variable
+
 Outputs:
   VPC:
     Value:
